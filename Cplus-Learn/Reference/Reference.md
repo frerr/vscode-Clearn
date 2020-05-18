@@ -6,6 +6,4 @@ Int & num = size
 
  引用必须在创建时进行初始化
 
-
-
-![image-20200518170050578](C:\Users\bing.wu\AppData\Roaming\Typora\typora-user-images\image-20200518170050578.png)
+ 
