@@ -21,7 +21,7 @@ void Copyfile(ifstream & inF,ofstream & outF,const string &str){
         exit(EXIT_FAILURE);
     }
     string str1;
-    while (inF.good()) {
+    while (inF.good()) { //是否为EOF
         getline(inF,str1);
         outF << str1 << endl;
     }
