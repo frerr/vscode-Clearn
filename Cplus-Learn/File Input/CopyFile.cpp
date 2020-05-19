@@ -1,29 +1,28 @@
 #include<iostream>
 #include<string>
 #include<fstream>
-using namespace std;
 
-void Copyfile(ifstream & inF,ofstream & outF,const string &str); //一般stream objects打开/关闭是改变的，所以不适用const限定
-
+void Copyfile(std::ifstream & inF,std::ofstream & outF,const std::string &str = "default.txt"); //一般stream objects打开/关闭是改变的，所以不适用const限定
+                                                                 //默认参数str
 int main(){
-    ifstream inFile;
+    std::ifstream inFile;
     inFile.open("Summary");
-    ofstream outFile;
-    string name = "SummaryCpy.txt";
+    std::ofstream outFile;
+    std::string name = "SummaryCpy.txt";
     Copyfile(inFile,outFile,name);
     return 0;
 }
 
-void Copyfile(ifstream & inF,ofstream & outF,const string &str){
+void Copyfile(std::ifstream & inF,std::ofstream & outF,const std::string &str){
     outF.open(str);
     if(! outF.is_open()){ //是否成功打开
-        cout << "open file "<< str << " Erro" << endl;
+        std::cout << "open file "<< str << " Erro" << std::endl;
         exit(EXIT_FAILURE);
     }
-    string str1;
+    std::string str1;
     while (inF.good()) { //是否为EOF
         getline(inF,str1);
-        outF << str1 << endl;
+        outF << str1 << std::endl;
     }
-    cout << "Copy successfully !!" << endl;
+    std::cout << "Copy successfully !!" << std::endl;
 }
