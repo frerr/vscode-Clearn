@@ -16,9 +16,9 @@ int main(){
     for(st=0;st<4;st++){
         stocks[st].show();
     }
-    const Stock* top = &stocks[0];
-    for(st=1;st<4;st++){
-        top = &(top->topval(stocks[st]));
+    const Stock* top = &stocks[0]; //const表示top指向的数据不能改变
+    for(st=0;st<4;st++){
+        top = &(top->topval(stocks[st])); //遍历stocks数组元素，找到最大的
     }
     std::cout << "\nMost valuable holding: ";
     top->show();
