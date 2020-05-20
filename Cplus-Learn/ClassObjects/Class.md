@@ -1,0 +1,1 @@
+类成员默认private，结构体默认public
