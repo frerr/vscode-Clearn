@@ -5,15 +5,22 @@
 #include <string>
 
 int main(){
-    {
-    Stock kate("Jordan",12,20);
-    kate.show();
-    Stock joe;
-    joe.show();
-    Stock *pr = new Stock ("Nike",10,15);
-    pr->show();
-    delete pr;
+    Stock stocks[4] = {
+        Stock("Jodan",12,20),
+        Stock("Nike",20,30),
+        Stock("Addi",18,25),
+        Stock("Udem",22,40)
+    };
+    std::cout << "Stock holdings:\n";
+    int st;
+    for(st=0;st<4;st++){
+        stocks[st].show();
     }
-    std::cout << "class done"<<std::endl;
+    const Stock* top = &stocks[0];
+    for(st=1;st<4;st++){
+        top = &(top->topval(stocks[st]));
+    }
+    std::cout << "\nMost valuable holding: ";
+    top->show();
     return 0;
 }

@@ -63,9 +63,18 @@ void Stock::update(double price){
     set_tot();
 }
 
-void Stock::show(){
+void Stock::show() const{
     std::cout << "Company: "<< company
               << " Shares: "<<shares << std::endl
               << " Share Price: $" << share_val
               << " Total Worth: $" << total_val << std::endl;
+}
+
+const Stock& Stock::topval(const Stock & s) const{
+    if (s.total_val > this->total_val){
+        return s;
+    }
+    else{
+        return *this;
+    }
 }

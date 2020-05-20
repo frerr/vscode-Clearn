@@ -14,12 +14,16 @@ private:
     }
 public:
     Stock(); //构造函数
-    Stock(const std::string & co,long n=0,double pr=0); //构造函数重载
+    Stock(const std::string& co,long n=0,double pr=0); //构造函数重载
     ~Stock(); //析构函数
     void buy(long num,double price);
     void sell(long num,double price);
     void update(double price);
-    void show();
+    void show() const;
+    const Stock& topval(const Stock& s) const;
+    //1处const确保返回的Stock对象在以后的使用中不能被修改;
+    //2处const：确保此方法不修改传递的参数S;
+    //3处const：保证此方法不修改调用它的对象;
 };
 
 #endif
