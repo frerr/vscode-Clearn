@@ -2,7 +2,7 @@
 #include "Stock.h"
 
 Stock::Stock(){
-    std::cout << "Default constructor" << std::endl;
+    std::cout << "Default constructor " << company << std::endl;
     company = " ";
     shares = 0;
     share_val = 0;
@@ -63,11 +63,11 @@ void Stock::update(double price){
     set_tot();
 }
 
-void Stock::show() const{
-    std::cout << "Company: "<< company
-              << " Shares: "<<shares << std::endl
-              << " Share Price: $" << share_val
-              << " Total Worth: $" << total_val << std::endl;
+void operator<<(std::ostream &os,const Stock &st){
+    os << "Company: "<< st.company
+              << " Shares: "<<st.shares << std::endl
+              << " Share Price: $" << st.share_val
+              << " Total Worth: $" << st.total_val << std::endl;
 }
 
 const Stock& Stock::topval(const Stock & s) const{
@@ -77,4 +77,17 @@ const Stock& Stock::topval(const Stock & s) const{
     else{
         return *this;
     }
+}
+
+const Stock Stock::operator + (const Stock & st) const{
+    Stock temp;
+    temp.share_val = this->share_val + st.share_val;
+    temp.shares = this->shares + st.shares;
+    return temp;
+}
+
+Stock operator * (double m,const Stock &st){
+    Stock tmp;
+    tmp.total_val = m * st.total_val;
+    return tmp;
 }
