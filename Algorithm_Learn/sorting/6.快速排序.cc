@@ -8,6 +8,9 @@ void PrintArr(int const *arr,int const n){
 
 int Paritition1(int A[], int low, int high) { //标准分区函数
    int pivot_val = A[low]; //初始化基准。可优化成随机基准。。
+   /*
+   随机基准，或中立数基准
+   */
    while (low < high) { //分区：基于基准，划分数据。低区都小于基准，高区都大于基准
      while (low < high && A[high] >= pivot_val) {
        --high;
