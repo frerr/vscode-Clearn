@@ -6,33 +6,41 @@ void PrintArr(int const *arr,int const n){
     }
 }
 
-template<typename T> // 整數或浮點數皆可使用
-void merge_sort(T arr[], int len) {
-    T *a = arr;
-    T *b = new T[len];
-    for (int seg = 1; seg < len; seg += seg) {
-        for (int start = 0; start < len; start += seg + seg) {
-            int low = start, mid = min(start + seg, len), high = min(start + seg + seg, len);
-            int k = low;
-            int start1 = low, end1 = mid;
-            int start2 = mid, end2 = high;
-            while (start1 < end1 && start2 < end2)
-                b[k++] = a[start1] < a[start2] ? a[start1++] : a[start2++];
-            while (start1 < end1)
-                b[k++] = a[start1++];
-            while (start2 < end2)
-                b[k++] = a[start2++];
-        }
-        T *temp = a;
-        a = b;
-        b = temp;
+static void merge(int arr[], int L, int mid, int R) { //额外的一个数组，进行合并
+    int temp[R-L+1] = {0};
+    int i = 0;
+    int p1 = L;
+    int p2 = mid + 1;
+    // 比较左右两部分的元素，哪个小，把那个元素填入temp中
+    while(p1 <= mid && p2 <= R) {
+        temp[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
     }
-    if (a != arr) {
-        for (int i = 0; i < len; i++)
-            b[i] = a[i];
-        b = a;
+    // 上面的循环退出后，把剩余的元素依次填入到temp中
+    // 以下两个while只有一个会执行
+    while(p1 <= mid) {
+        temp[i++] = arr[p1++];
     }
-    delete[] b;
+    while(p2 <= R) {
+        temp[i++] = arr[p2++];
+    }
+    // 把最终的排序的结果复制给原数组
+    for(i = 0; i < sizeof(temp)/sizeof(temp[0]); i++) {
+        arr[L + i] = temp[i];
+    }
+}
+
+static void sort(int arr[],int L,int R) { //使用递归，进行分治处理（最小单元里元素1），最后合并数组
+    if(L == R) {
+        return;
+    }
+    int mid = L + ((R-L) >> 1);
+    sort(arr, L, mid);
+    sort(arr, mid + 1, R);
+    merge(arr, L, mid, R);
+}
+
+static void merge_sort(int arr[],int n) { //主归并 函数
+    sort(arr, 0, n-1);
 }
 
 int main(){
@@ -42,3 +50,5 @@ int main(){
     PrintArr(arr1,n);
     return 0;
 }
+
+//时间复杂度O(nlongn)，空间复杂度O(1)
